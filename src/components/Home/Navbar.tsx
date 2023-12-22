@@ -1,6 +1,20 @@
+'use client'
+import { setUser } from "@/redux/features/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { signOut } from "firebase/auth";
 import Link from "next/link";
+import { auth } from "../Auth/Firebase";
 
 const Navbar = () => {
+  const {user, isLoading} = useAppSelector(state => state.user)
+  const dispatch = useAppDispatch();
+  
+  const handleLogout = async ()=> {
+    await signOut(auth).then(() => {
+      dispatch(setUser(null))
+    })
+  }
+
   return (
     <div>
       <header className="p-4 dark:bg-gray-800 dark:text-gray-100">
@@ -18,7 +32,15 @@ const Navbar = () => {
             </li>
           </ul>
           <div className="items-center flex-shrink-0 hidden lg:flex">
-            <Link href='/login'><button className="self-center px-8 py-3 font-semibold rounded dark:bg-blue-500 text-gray-100">Log in</button></Link>
+            {
+              user?.email? 
+              <>
+              <button onClick={()=> handleLogout()} className="self-center px-8 py-3 font-semibold rounded dark:bg-blue-500 text-gray-100">Log Out</button>
+              </> : 
+              <>
+              <Link href='/login'><button className="self-center px-8 py-3 font-semibold rounded dark:bg-blue-500 text-gray-100">Log in</button></Link>
+              </>
+            }
           </div>
           <button className="p-4 lg:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6 dark:text-gray-100">
