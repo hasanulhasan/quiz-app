@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <section className="flex flex-col h-screen lg:justify-end font-poppins">
+    <section className="flex flex-col mt-24 lg:justify-end font-poppins">
 <div className="w-full bg-gray-100 border-t dark:border-gray-900 py-4 dark:bg-gray-900">
 <div className="max-w-6xl mx-auto">
 <div className="justify-center flex-1 max-w-6xl px-4 py-2 mx-auto lg:py-0">
@@ -89,7 +89,7 @@ Subscribe to the latest Newsletters
 </div>
 <div className="px-4 py-6 bg-gray-300 dark:bg-gray-800 dark:text-gray-400">
 <div className="flex flex-wrap items-center justify-between max-w-6xl gap-4 mx-auto">
-<div className=""> © Copyright 2022 . All Rights Reserved</div>
+<div className=""> © Copyright 2023 . All Rights Reserved</div>
 <div className="flex items-center gap-3">
 <a href="#" className="mr-4 text-gray-600 dark:text-gray-400 hover:text-blue-700">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5 bi bi-facebook" viewBox="0 0 16 16">

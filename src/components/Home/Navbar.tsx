@@ -8,10 +8,10 @@ const Navbar = () => {
           <a href="/" aria-label="Back to homepage" className="flex items-center p-2 text-4xl font-extrabold"> Quiz App </a>
           <ul className="items-stretch hidden space-x-3 lg:flex">
             <li className="flex">
-              <Link href='/quiz' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">Quiz</Link>
+              <Link href='/' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">Quiz</Link>
             </li>
             <li className="flex">
-              <Link href='/' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">About Us</Link>
+              <Link href='/about' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">About Us</Link>
             </li>
             <li className="flex">
               <Link href='/' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">Blog</Link>
