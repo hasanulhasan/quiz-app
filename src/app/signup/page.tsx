@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Login = () => {
   return (
     <section className=" font-poppins">
@@ -29,8 +31,8 @@ const Login = () => {
                             className="w-full px-4 py-3 mt-6 font-semibold text-gray-100 bg-blue-500 rounded-l hover:bg-blue-600 "
                             type="submit">REGISTER</button>
                         <p className="mt-6 text-black"> Already have an account?
-                            <a href="#" className="font-semibold text-blue-500 hover:text-blue-700"> Login here
-                            </a>
+                            <Link href="/login" className="font-semibold text-blue-500 hover:text-blue-700"> Login here
+                            </Link>
                         </p>
                     </form>
                 </div>

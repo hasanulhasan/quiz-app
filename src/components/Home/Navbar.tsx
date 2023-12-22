@@ -13,6 +13,9 @@ const Navbar = () => {
             <li className="flex">
               <Link href='/' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">About Us</Link>
             </li>
+            <li className="flex">
+              <Link href='/' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">Blog</Link>
+            </li>
           </ul>
           <div className="items-center flex-shrink-0 hidden lg:flex">
             <Link href='/login'><button className="self-center px-8 py-3 font-semibold rounded dark:bg-blue-500 text-gray-100">Log in</button></Link>
