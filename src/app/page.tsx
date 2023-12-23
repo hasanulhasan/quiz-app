@@ -8,6 +8,7 @@ import { useGetQuizQuery } from "@/redux/features/apiSlice"
 export default function Home() {
   const {data} = useGetQuizQuery(null);
   const quizTopic = data?.data
+  
   return (
     <main>
       <Navbar/>

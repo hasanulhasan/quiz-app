@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import Loading from "../loading";
 type Inputs = {
     email: string
     password: string
@@ -46,6 +47,7 @@ const Login = () => {
                 <div className="z-10 w-full p-10 bg-gray-100 h-100">
                     <h2 className="text-xl font-bold leading-tight mb-7 md:text-3xl text-black">
                         Login to your account</h2>
+                        {isLoading && <Loading/>}
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
                         <div>
                             <label htmlFor="" className="block text-black">Email:</label>

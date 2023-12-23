@@ -1,4 +1,5 @@
 'use client'
+import { useCreateUserToDBMutation } from "@/redux/features/apiSlice";
 import { createUser } from "@/redux/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
@@ -6,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import Loading from "../loading";
 
 type Inputs = {
     name: string
@@ -16,7 +18,7 @@ type Inputs = {
 const SignUp = () => {
     const dispatch = useAppDispatch();
     const {user, isLoading} = useAppSelector(state=> state.user)
-    // const [createUserInDB] = useCreateUserInDBMutation();
+    const [createUserToDB] = useCreateUserToDBMutation();
     const router = useRouter();
 
     const {
@@ -30,7 +32,7 @@ const SignUp = () => {
         try {
             await dispatch(createUser({email, password})).then(()=> {
                 const role = 'user'
-                // createUserInDB({name, email, role})
+                createUserToDB({name, email, role})
             })
         } catch (error) {
             console.log(error)
@@ -56,18 +58,19 @@ const SignUp = () => {
                 <div className="z-10 w-full p-10 bg-gray-100 h-100">
                     <h2 className="text-xl font-bold leading-tight mb-7 md:text-3xl text-black">
                         Register to your account</h2>
+                        {isLoading && <Loading/>}
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-6">
                         <div>
                             <label htmlFor="" className="block text-black">Name:</label>
                             <input type="text" {...register("name", { required: true })}
-                                className="w-full px-4 py-3 mt-2 bg-white rounded-lg dark:text-gray-100 border border-gray-800"
+                                className="w-full px-4 py-3 mt-2 bg-white rounded-lg border border-gray-800"
                                 name="name" placeholder="Enter your name"/>
                         </div>
                         {errors.name && <span className='text-danger-600 mt-1'>This field is required</span>}
                         <div className="mt-5">
                             <label htmlFor="" className="block text-black">Email:</label>
                             <input type="email" {...register("email", { required: true })}
-                                className="w-full px-4 py-3 mt-2 bg-white rounded-lg dark:text-gray-100 border border-gray-800"
+                                className="w-full px-4 py-3 mt-2 bg-white rounded-lg border border-gray-800"
                                 name="email" placeholder="Enter your email"/>
                         </div>
                         {errors.email && <span className='text-danger-600 mt-1'>This field is required</span>}
@@ -76,7 +79,7 @@ const SignUp = () => {
                                 <label htmlFor="" className="text-black">Password:</label>
                                 <div className="relative flex items-center mt-2">
                                     <input type="password" {...register("password", { required: true })}
-                                        className="w-full px-4 py-3 bg-white rounded-lg dark:text-gray-400 dark:text-gray-100 border border-gray-800"
+                                        className="w-full px-4 py-3 bg-white rounded-lg border border-gray-800"
                                         name="password" placeholder="Enter password"/>
                                 </div>
                                 {errors.password && <span className='text-danger-600 mt-1'>This field is required</span>}

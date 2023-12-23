@@ -2,6 +2,7 @@
 import { useGetSingleQuizQuery } from "@/redux/features/apiSlice";
 import { useParams } from "next/navigation";
 import QuizDetails from '@/components/Options/QuizDetails';
+import Loading from "../loading";
 
 const Quiz = () => {
   const { id } = useParams();
@@ -9,7 +10,7 @@ const Quiz = () => {
   const quizzes = data?.data
 
   let content = null;
-  if (isLoading) content = <h1>Loading...</h1>
+  if (isLoading) content = <Loading/>
   if (!isLoading && isError) content = <p className='text-lg text-destructive text-center'>There is an error</p>;
   if (!isLoading && !isError && quizzes) {content = <QuizDetails key={quizzes._id} quizzes={quizzes}/>}
 
