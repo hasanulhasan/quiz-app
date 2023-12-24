@@ -9,8 +9,8 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/components/Auth/Firebase'
 
 const metadata: Metadata = {
-  title: 'My Score',
-  description: 'My Score',
+  title: 'Profile',
+  description: 'Profile',
 }
 
 export default function OrderLayout( {children}: {  children: React.ReactNode }) {

@@ -16,7 +16,8 @@ export const apiSlice = createApi({
       query: () => '/user'
     }),
     getScores: builder.query({
-      query: () => '/score'
+      query: () => '/score',
+      providesTags: ['Score']
     }),
     getQuestions: builder.query({
       query: () => '/question',
@@ -35,6 +36,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body: data
       }),
+      invalidatesTags: ['Score']
     }),
     createQuestionToDB: builder.mutation({
       query: (data) => ({
@@ -42,6 +44,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body: data
       }),
+      invalidatesTags: ['Question']
     }),
     deleteQuestion: builder.mutation({
       query: (id) => ({
@@ -50,8 +53,15 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ['Question']
     }),
+    deleteScore: builder.mutation({
+      query: (id) => ({
+        url: `/score/${id}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Score']
+    }),
   }),
 })
 
 
-export const {useGetScoresQuery,useGetQuestionsQuery, useGetQuizQuery, useGetSingleQuizQuery, useCreateUserToDBMutation, useCreateQuestionToDBMutation, useCreateScoreMutation, useDeleteQuestionMutation} = apiSlice
+export const {useGetScoresQuery, useGetQuestionsQuery, useGetQuizQuery, useGetSingleQuizQuery, useCreateUserToDBMutation, useCreateQuestionToDBMutation, useCreateScoreMutation, useDeleteQuestionMutation, useGetUsersQuery, useDeleteScoreMutation} = apiSlice

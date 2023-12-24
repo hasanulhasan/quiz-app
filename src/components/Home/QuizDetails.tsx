@@ -140,10 +140,13 @@ const QuizDetails = ({quizzes}) => {
           <h1 className='text-2xl font-bold'>
             You have got {score} out of {maxSteps}
           </h1>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography id="modal-modal-description" sx={{ my: 2 }}>
             Thanks for participating in this quiz. Practice daily and enhance your skill
           </Typography>
-         <Link href='/'><button className="inline-block text-xl px-4 py-2 mt-2 border rounded-md text-black dark:bg-blue-400 ">Go Home</button></Link>
+         <div className='flex justify-between my-2'>
+         <Link href='/'><button className="inline-block text-xl px-4 py-2 border rounded-md text-black dark:bg-blue-400 ">Go Home</button></Link>
+         <Link href='/myScore'><button className="inline-block text-xl px-4 py-2 border rounded-md text-black dark:bg-blue-400 ">See all Score</button></Link>
+         </div>
         </Box>
       </Modal>
     </div>

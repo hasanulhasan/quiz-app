@@ -30,7 +30,7 @@ const AddQuiz = () => {
         toast.success('Question added')
         e.target.reset()
         setTimeout(() => {
-          router.push(`/`)
+          router.push(`/manage-question`)
         }, 800);
       }
     })

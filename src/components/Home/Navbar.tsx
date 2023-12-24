@@ -7,9 +7,19 @@ import { auth } from "../Auth/Firebase";
 import { Avatar, Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useGetUsersQuery } from "@/redux/features/apiSlice";
+import IUser from "@/Types";
 
 const Navbar = () => {
-  const {user} = useAppSelector(state => state.user)
+  const {data} = useGetUsersQuery(null)
+  const {user: currentUser} = useAppSelector(state => state.user)
+  const users: IUser[] = data?.data
+  let isAdmin = null;
+  users?.filter(user=> {
+    if((user.email === currentUser.email) && user.role === 'admin'){
+      isAdmin = true;
+    }
+  })
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,6 +34,7 @@ const Navbar = () => {
   const handleLogout = async ()=> {
     await signOut(auth).then(() => {
       dispatch(setUser(null))
+      router.push('/')
     })
   }
 
@@ -42,7 +53,7 @@ const Navbar = () => {
           </ul>
           <div className="items-center flex-shrink-0 hidden lg:flex">
             {
-              user?.email? 
+              currentUser?.email? 
               <>
               <Box>
                 <IconButton
@@ -53,7 +64,7 @@ const Navbar = () => {
                   onClick={handleMenu}
                   color="inherit"
                 >
-                  <Avatar alt="user avatar" src={`https://ui-avatars.com/api/bold=true?name=${user?.email}`} />
+                  <Avatar alt="user avatar" src={`https://ui-avatars.com/api/bold=true?name=${currentUser?.email}`} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -70,10 +81,15 @@ const Navbar = () => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={()=> {router.push('/profile')}}>Profile</MenuItem>
+                  <MenuItem onClick={()=> {router.push('/myScore')}}>My Score</MenuItem>
+                  {
+                    isAdmin && <>
+                  <MenuItem onClick={()=> {router.push('/allScore')}}>All Score</MenuItem>
                   <MenuItem onClick={()=> {router.push('/addQuiz')}}>Add Quiz</MenuItem>
                   <MenuItem onClick={()=> {router.push('/manage-question')}}>Manage Quiz</MenuItem>
-                  <MenuItem onClick={()=> {router.push('/myScore')}}>My Score</MenuItem>
+                    </>
+                  }
                   <MenuItem onClick={()=> handleLogout()}>Logout</MenuItem>
                 </Menu>
                 </Box>

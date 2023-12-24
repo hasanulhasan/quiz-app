@@ -11,7 +11,7 @@ const Quiz = ({quizTopic}:{quizTopic: IQuiz[]}) => {
   return (
     <div>
       <h1 className="text-center font-bold text-5xl my-14">Select your quiz topic</h1>
-    <div className="grid grid-flow-col gap-10 mx-12">
+    <div className="grid grid-flow-col gap-14 mx-12">
       {
         quizTopic?.map(quiz => <div key={quiz.id}>
           <div className="rounded-md shadow-md dark:bg-gray-900 dark:text-gray-100">
