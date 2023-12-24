@@ -8,6 +8,7 @@ const QuizTopic = ({quiz}) => {
   const handleRoute = (id: number) => {
     router.push(`/${id}`)
   }
+  
   return (
     <div>
       <div className="rounded-md shadow-md dark:bg-gray-900 dark:text-gray-100">

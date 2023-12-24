@@ -20,12 +20,7 @@ const SignUp = () => {
     const {user, isLoading} = useAppSelector(state=> state.user)
     const [createUserToDB] = useCreateUserToDBMutation();
     const router = useRouter();
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm<Inputs>()
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         const {name, email, password} = data;

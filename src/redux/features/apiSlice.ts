@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000/v1/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000/v1' }),
   endpoints: (builder) => ({
     getQuiz: builder.query({
       query: () => `/topic`,
@@ -14,9 +14,22 @@ export const apiSlice = createApi({
     getUsers: builder.query({
       query: () => '/user'
     }),
+    getScores: builder.query({
+      query: () => '/score'
+    }),
+    getQuestions: builder.query({
+      query: () => '/question'
+    }),
     createUserToDB: builder.mutation({
       query: (data) => ({
         url: '/user/create-user',
+        method: 'POST',
+        body: data
+      }),
+    }),
+    createScore: builder.mutation({
+      query: (data) => ({
+        url: '/score/create-score',
         method: 'POST',
         body: data
       }),
@@ -32,4 +45,4 @@ export const apiSlice = createApi({
 })
 
 
-export const { useGetQuizQuery, useGetSingleQuizQuery, useCreateUserToDBMutation, useCreateQuestionToDBMutation} = apiSlice
+export const {useGetScoresQuery,useGetQuestionsQuery, useGetQuizQuery, useGetSingleQuizQuery, useCreateUserToDBMutation, useCreateQuestionToDBMutation, useCreateScoreMutation} = apiSlice

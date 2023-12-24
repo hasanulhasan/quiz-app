@@ -47,7 +47,6 @@ const Navbar = () => {
             {
               user?.email? 
               <>
-              {/* <button onClick={()=> handleLogout()} className="self-center px-8 py-3 font-semibold rounded dark:bg-blue-500 text-gray-100">Log Out</button> */}
               <Box>
                 <IconButton
                   size="large"
@@ -76,6 +75,7 @@ const Navbar = () => {
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={()=> {router.push('/addQuiz')}}>Add Quiz</MenuItem>
+                  <MenuItem onClick={()=> {router.push('/myScore')}}>My Score</MenuItem>
                   <MenuItem onClick={()=> handleLogout()}>Logout</MenuItem>
                 </Menu>
                 </Box>

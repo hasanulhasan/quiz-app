@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Question from './Question';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
@@ -8,6 +7,9 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import toast, { Toaster } from 'react-hot-toast';
 import { Box, Modal, Typography } from '@mui/material';
 import Link from 'next/link';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setScore } from '@/redux/features/scoreSlice';
+import { useCreateScoreMutation } from '@/redux/features/apiSlice';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -23,37 +25,57 @@ const style = {
 
 const QuizDetails = ({quizzes}) => {
   const theme = useTheme();
-  
+  const dispatch = useAppDispatch();
+  const {score} = useAppSelector(state=> state.score)
+  const [createScore] = useCreateScoreMutation();
+  const {user} = useAppSelector(state => state.user)
+  const userEmail = user?.email
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeQuestion, setActiveQuestion] = useState(quizzes?.questions[activeStep])
   const maxSteps = quizzes?.questions?.length;
   const {options, question, correctAnswer} = activeQuestion;
+  const topic = quizzes.name
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  var score = 0;
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if(activeStep === maxSteps - 1){
-      console.log('you have finished')
       handleOpen();
+      const scoreInfo = {userEmail,topic,score}
+      console.log(scoreInfo)
+      // await createScore({userEmail,topic,score})
+
+      fetch('http://localhost:9000/v1/score/create-score', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(scoreInfo)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.acknowledged) {
+          console.log('data inserted')
+        }
+      })
+      .catch(err => console.error(err))
+
+
     }
     else{
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 
-  // const handleBack = () => {
-  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  // };
-
   const handleCorrectAns = (option:string) => {
     if(option === correctAnswer){
       toast.success('Correct Ans!')
-      score = score + 1
+      dispatch(setScore())
+
       if(activeStep === maxSteps - 1){
-        console.log('you have finished you got', score)
-        handleOpen();
+        handleNext();
       }
       else{
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -62,8 +84,7 @@ const QuizDetails = ({quizzes}) => {
     else{
       toast.error('Your and is wrong!')
       if(activeStep === maxSteps - 1){
-        console.log('you have finished you got', score)
-        handleOpen();
+        handleNext();
       }
       else{
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -117,16 +138,6 @@ const QuizDetails = ({quizzes}) => {
             )}
           </Button>
         }
-        // backButton={
-        //   <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-        //     {theme.direction === 'rtl' ? (
-        //       <KeyboardArrowRight />
-        //     ) : (
-        //       <KeyboardArrowLeft />
-        //     )}
-        //     Back
-        //   </Button>
-        // }
       />
       </div>
       <Toaster

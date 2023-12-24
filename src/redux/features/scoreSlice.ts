@@ -1,19 +1,22 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  score: ''
+  score: 0
 }
 
 const scoreSlice = createSlice({
   name: 'score',
   initialState,
   reducers: {
-    setScore: (state, action: PayloadAction<string>) => {
-      state.score = action.payload;
+    setScore: (state) => {
+      state.score = state.score + 1;
+    },
+    zeroScore: (state) => {
+      state.score = 0;
     },
   }
 })
 
 
 export default scoreSlice.reducer;
-export const { setScore } = scoreSlice.actions
+export const { setScore, zeroScore } = scoreSlice.actions
