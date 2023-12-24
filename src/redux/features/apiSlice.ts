@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000/v1' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://quiz-app-server-kqpnpq2q4-hasanulhasan.vercel.app/v1' }),
   tagTypes: ['Topic', 'Question', 'User', 'Score'],
   endpoints: (builder) => ({
     getQuiz: builder.query({
