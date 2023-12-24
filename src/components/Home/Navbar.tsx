@@ -9,12 +9,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const {user, isLoading} = useAppSelector(state => state.user)
+  const {user} = useAppSelector(state => state.user)
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleMenu = (event) => {
+  const handleMenu = (event:any) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {

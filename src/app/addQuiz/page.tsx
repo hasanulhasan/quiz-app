@@ -7,11 +7,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useCreateQuestionToDBMutation, useGetQuizQuery } from '@/redux/features/apiSlice';
 import Loading from '../loading';
+import IQuiz from '@/Types';
 
 const AddQuiz = () => {
   const router = useRouter();
   const {data, isLoading} = useGetQuizQuery(null)
-  const quizTopic = data?.data
+  const quizTopic: IQuiz[] = data?.data
   const [createQuestionToDB] = useCreateQuestionToDBMutation();
 
   const handleSubmit = async (e:any)=> {
@@ -23,7 +24,6 @@ const AddQuiz = () => {
       correctAnswer: data.get('correctAnswer'),
       options: [data.get('option-1'), data.get('option-2'), data.get('option-3'), data.get('option-4')]
     }
-    console.log(questionData)
     try {
       await createQuestionToDB(questionData).then(data=> {
         if(data){
@@ -62,7 +62,7 @@ const AddQuiz = () => {
           label="Topic"
         >
           {
-            quizTopic && quizTopic.map(topic => <MenuItem key={topic.id} value={`${parseInt(topic.id)}`}>{topic.name}</MenuItem>)
+            quizTopic && quizTopic.map(topic => <MenuItem key={topic.id} value={`${topic.id!}`}>{topic.name}</MenuItem>)
           }
         </Select>
       </FormControl>

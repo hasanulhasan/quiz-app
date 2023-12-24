@@ -1,11 +1,12 @@
 'use client'
 import { useGetScoresQuery } from '@/redux/features/apiSlice';
-import React from 'react';
 import Loading from '../loading';
+import IScore from '@/Types';
 
 const MyScore = () => {
   const {data, isLoading} = useGetScoresQuery(null);
-  const allScore = data?.data
+  const allScore: IScore[] = data?.data
+
   return (
       <section className="items-center lg:flex mt-6 ">
         <div className="justify-center flex-1 max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">

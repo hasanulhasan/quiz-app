@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { loginUser } from "@/redux/features/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -10,7 +11,7 @@ import Loading from "../loading";
 type Inputs = {
     email: string
     password: string
-  }
+}
 
 const Login = () => {
 

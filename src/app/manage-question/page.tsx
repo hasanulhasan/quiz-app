@@ -3,10 +3,11 @@ import { useDeleteQuestionMutation, useGetQuestionsQuery } from '@/redux/feature
 import React from 'react';
 import Loading from '../loading';
 import toast, { Toaster } from 'react-hot-toast';
+import IQuestion from '@/Types';
 
 const ManageQuestion = () => {
   const {data,isLoading} = useGetQuestionsQuery(null);
-  const allQuestions = data?.data
+  const allQuestions: IQuestion[] = data?.data
   const [deleteQuestion] = useDeleteQuestionMutation()
   const handleDelete = (id: number) => {
     deleteQuestion(id)
@@ -36,14 +37,15 @@ const ManageQuestion = () => {
                     </thead>
                     <tbody>
                         {
-                          allQuestions?.map(question=> <tr key={question.id} className="text-xs bg-gray-100 text-black">
-                          <td className="px-6 py-5 font-medium">{question.question}</td>
-                          <td className="px-6 py-5 font-medium ">{question.topic.name}</td>
+                          allQuestions?.map(question=> <tr key={question?.id} className="text-xs bg-gray-100 text-black">
+                          <td className="px-6 py-5 font-medium">{question?.question}</td>
+                          {/* @ts-ignore */}
+                          <td className="px-6 py-5 font-medium ">{question?.topic?.name}</td>
                           <td className="px-6 py-5 text-center">
                               <a href="#"
                                   className="px-4 py-2 font-medium text-black border border-blue-500 rounded-md  dark:border-blue-300 dark:hover:bg-blue-300 dark:hover:text-gray-700 hover:bg-blue-500">Edit
                               </a>
-                              <button onClick={()=> handleDelete(question.id)}
+                              <button onClick={()=> handleDelete(question?.id!)}
                                   className="px-4 ml-2 py-2 font-medium border border-red-500 rounded-md  text-black hover:bg-red-500">Delete
                               </button>
                           </td>

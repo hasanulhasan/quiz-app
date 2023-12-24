@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -10,6 +11,7 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setScore } from '@/redux/features/scoreSlice';
 import { useCreateScoreMutation } from '@/redux/features/apiSlice';
+// import IQuestion from '@/Types';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -22,19 +24,17 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
+{/* @ts-ignore */}
 const QuizDetails = ({quizzes}) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const {score} = useAppSelector(state=> state.score)
   const [createScore] = useCreateScoreMutation();
   const {user} = useAppSelector(state => state.user)
-  // const userEmail = user?.email
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeQuestion, setActiveQuestion] = useState(quizzes?.questions[activeStep])
   const maxSteps = quizzes?.questions?.length;
   const {options, question, correctAnswer} = activeQuestion;
-  // const topic = quizzes.name
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -47,26 +47,7 @@ const QuizDetails = ({quizzes}) => {
         topic: quizzes?.name,
         score: score.toString()
       }
-      console.log(scoreInfo)
       await createScore(scoreInfo)
-
-    //   fetch('http://localhost:9000/v1/score/create-score', {
-    //   method: 'POST',
-    //   headers: {
-    //     'content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(scoreInfo)
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     console.log(data)
-    //     if (data.acknowledged) {
-    //       console.log('data inserted')
-    //     }
-    //   })
-    //   .catch(err => console.error(err))
-
-
     }
     else{
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -75,7 +56,7 @@ const QuizDetails = ({quizzes}) => {
 
   const handleCorrectAns = (option:string) => {
     if(option === correctAnswer){
-      toast.success('Correct Ans!')
+      toast.success('Correct ans!')
       dispatch(setScore())
 
       if(activeStep === maxSteps - 1){
@@ -86,7 +67,7 @@ const QuizDetails = ({quizzes}) => {
       }
     }
     else{
-      toast.error('Your and is wrong!')
+      toast.error('Your ans is wrong!')
       if(activeStep === maxSteps - 1){
         handleNext();
       }
@@ -99,7 +80,6 @@ const QuizDetails = ({quizzes}) => {
   useEffect(() => {
     setActiveQuestion(quizzes?.questions[activeStep])
   }, [activeStep])
-  
 
   return (
     <div>
@@ -113,7 +93,8 @@ const QuizDetails = ({quizzes}) => {
 
         <div>
           <div className="flex flex-wrap py-6 border-t border-dashed dark:border-gray-400">
-            {
+            
+            { /* @ts-ignore */
               options?.map((option,i)=> <div key={i}>
                 <button onClick={()=> handleCorrectAns(option)} className="inline-block text-xl px-3 py-3 border-solid border-2 border-sky-700 font-bold m-3 rounded-lg hover:bg-gray-900 hover:text-white dark:bg-blue-400 dark:text-gray-900">{option}</button>
               </div >)
@@ -123,6 +104,7 @@ const QuizDetails = ({quizzes}) => {
       </div>
       {/* Next and back */}
       <div className="max-w-3xl px-6 py-4 mx-auto space-y-8 border-solid border-2 my-4 shadow-md">
+        {/* @ts-ignore */}
         <MobileStepper
         variant="text"
         steps={maxSteps}

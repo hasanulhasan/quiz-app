@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { useCreateUserToDBMutation } from "@/redux/features/apiSlice";
 import { createUser } from "@/redux/features/userSlice";

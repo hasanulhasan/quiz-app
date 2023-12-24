@@ -1,16 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { useGetSingleQuizQuery } from "@/redux/features/apiSlice";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import QuizDetails from '@/components/Home/QuizDetails';
 import Loading from "../loading";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { zeroScore } from "@/redux/features/scoreSlice";
+import { useEffect } from "react";
 
 const Quiz = () => {
   const { id } = useParams();
   const {data, isLoading, isError} = useGetSingleQuizQuery(id);
   const quizzes = data?.data
   const dispatch = useAppDispatch();
+  const {user, isLoading: userIsLoading} = useAppSelector(state => state.user)
+  const router = useRouter();
 
   let content = null;
   if (isLoading) content = <Loading/>
@@ -19,6 +23,11 @@ const Quiz = () => {
     content = <QuizDetails key={quizzes._id} quizzes={quizzes}/>
     dispatch(zeroScore())
   }
+  useEffect(() => {
+    if(!user.email && !isLoading && !userIsLoading){
+      router.push('/login')
+    }
+  }, [user.email, isLoading])
 
   return (
     <div>
