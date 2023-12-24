@@ -7,7 +7,7 @@ const MyScore = () => {
   const {data, isLoading} = useGetScoresQuery(null);
   const allScore = data?.data
   return (
-      <section className="items-center lg:flex lg:h-screen ">
+      <section className="items-center lg:flex mt-6 ">
         <div className="justify-center flex-1 max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
             <div className="pt-4 rounded shadow bg-white dark:bg-gray-200">
                 <div className="flex px-6 pb-4 border-b dark:border-gray-700">

@@ -29,12 +29,12 @@ const QuizDetails = ({quizzes}) => {
   const {score} = useAppSelector(state=> state.score)
   const [createScore] = useCreateScoreMutation();
   const {user} = useAppSelector(state => state.user)
-  const userEmail = user?.email
+  // const userEmail = user?.email
   const [activeStep, setActiveStep] = React.useState(0);
   const [activeQuestion, setActiveQuestion] = useState(quizzes?.questions[activeStep])
   const maxSteps = quizzes?.questions?.length;
   const {options, question, correctAnswer} = activeQuestion;
-  const topic = quizzes.name
+  // const topic = quizzes.name
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -42,25 +42,29 @@ const QuizDetails = ({quizzes}) => {
   const handleNext = async () => {
     if(activeStep === maxSteps - 1){
       handleOpen();
-      const scoreInfo = {userEmail,topic,score}
+      const scoreInfo = {
+        userEmail: user?.email,
+        topic: quizzes?.name,
+        score: score.toString()
+      }
       console.log(scoreInfo)
-      // await createScore({userEmail,topic,score})
+      await createScore(scoreInfo)
 
-      fetch('http://localhost:9000/v1/score/create-score', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(scoreInfo)
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        if (data.acknowledged) {
-          console.log('data inserted')
-        }
-      })
-      .catch(err => console.error(err))
+    //   fetch('http://localhost:9000/v1/score/create-score', {
+    //   method: 'POST',
+    //   headers: {
+    //     'content-type': 'application/json'
+    //   },
+    //   body: JSON.stringify(scoreInfo)
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data)
+    //     if (data.acknowledged) {
+    //       console.log('data inserted')
+    //     }
+    //   })
+    //   .catch(err => console.error(err))
 
 
     }

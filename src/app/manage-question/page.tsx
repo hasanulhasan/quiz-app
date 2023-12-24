@@ -1,12 +1,17 @@
 'use client'
-import { useGetQuestionsQuery } from '@/redux/features/apiSlice';
+import { useDeleteQuestionMutation, useGetQuestionsQuery } from '@/redux/features/apiSlice';
 import React from 'react';
 import Loading from '../loading';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ManageQuestion = () => {
   const {data,isLoading} = useGetQuestionsQuery(null);
   const allQuestions = data?.data
-  console.log(allQuestions)
+  const [deleteQuestion] = useDeleteQuestionMutation()
+  const handleDelete = (id: number) => {
+    deleteQuestion(id)
+    toast.success('Question Deleted')
+  }
   return (
     <section className="items-center lg:flex bg-gray-50">
     <div className="justify-center flex-1 max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
@@ -25,7 +30,7 @@ const ManageQuestion = () => {
                     <thead>
                         <tr className="text-md text-left text-black">
                             <th className="px-6 pb-3 font-medium">Question</th>
-                            <th className="px-6 pb-3 font-medium ">Topic ID </th>
+                            <th className="px-6 pb-3 font-medium ">Topic Name</th>
                             <th className="px-6 pb-3 font-medium text-center">Action</th>
                         </tr>
                     </thead>
@@ -33,14 +38,14 @@ const ManageQuestion = () => {
                         {
                           allQuestions?.map(question=> <tr key={question.id} className="text-xs bg-gray-100 text-black">
                           <td className="px-6 py-5 font-medium">{question.question}</td>
-                          <td className="px-6 py-5 font-medium ">{question.topicId}</td>
+                          <td className="px-6 py-5 font-medium ">{question.topic.name}</td>
                           <td className="px-6 py-5 text-center">
                               <a href="#"
                                   className="px-4 py-2 font-medium text-black border border-blue-500 rounded-md  dark:border-blue-300 dark:hover:bg-blue-300 dark:hover:text-gray-700 hover:bg-blue-500">Edit
                               </a>
-                              <a href="#"
+                              <button onClick={()=> handleDelete(question.id)}
                                   className="px-4 ml-2 py-2 font-medium border border-red-500 rounded-md  text-black hover:bg-red-500">Delete
-                              </a>
+                              </button>
                           </td>
                       </tr>)
                         }
@@ -52,6 +57,10 @@ const ManageQuestion = () => {
             </div>
         </div>
     </div>
+    <Toaster
+        position="top-right"
+        reverseOrder={false}
+      />
 </section>
   );
 };

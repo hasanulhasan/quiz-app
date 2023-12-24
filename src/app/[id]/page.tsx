@@ -1,7 +1,7 @@
 'use client'
 import { useGetSingleQuizQuery } from "@/redux/features/apiSlice";
 import { useParams } from "next/navigation";
-import QuizDetails from '@/components/Options/QuizDetails';
+import QuizDetails from '@/components/Home/QuizDetails';
 import Loading from "../loading";
 import { useAppDispatch } from "@/redux/hooks";
 import { zeroScore } from "@/redux/features/scoreSlice";

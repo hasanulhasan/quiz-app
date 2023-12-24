@@ -37,9 +37,6 @@ const Navbar = () => {
               <Link href='/quiz' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">Quiz</Link>
             </li>
             <li className="flex">
-              <Link href='/about' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">About Us</Link>
-            </li>
-            <li className="flex">
               <Link href='/' className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-3xl">Blog</Link>
             </li>
           </ul>
@@ -75,6 +72,7 @@ const Navbar = () => {
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={()=> {router.push('/addQuiz')}}>Add Quiz</MenuItem>
+                  <MenuItem onClick={()=> {router.push('/manage-question')}}>Manage Quiz</MenuItem>
                   <MenuItem onClick={()=> {router.push('/myScore')}}>My Score</MenuItem>
                   <MenuItem onClick={()=> handleLogout()}>Logout</MenuItem>
                 </Menu>

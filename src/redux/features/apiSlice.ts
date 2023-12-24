@@ -4,6 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:9000/v1' }),
+  tagTypes: ['Topic', 'Question', 'User', 'Score'],
   endpoints: (builder) => ({
     getQuiz: builder.query({
       query: () => `/topic`,
@@ -18,7 +19,8 @@ export const apiSlice = createApi({
       query: () => '/score'
     }),
     getQuestions: builder.query({
-      query: () => '/question'
+      query: () => '/question',
+      providesTags: ['Question']
     }),
     createUserToDB: builder.mutation({
       query: (data) => ({
@@ -41,8 +43,15 @@ export const apiSlice = createApi({
         body: data
       }),
     }),
+    deleteQuestion: builder.mutation({
+      query: (id) => ({
+        url: `/question/${id}`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Question']
+    }),
   }),
 })
 
 
-export const {useGetScoresQuery,useGetQuestionsQuery, useGetQuizQuery, useGetSingleQuizQuery, useCreateUserToDBMutation, useCreateQuestionToDBMutation, useCreateScoreMutation} = apiSlice
+export const {useGetScoresQuery,useGetQuestionsQuery, useGetQuizQuery, useGetSingleQuizQuery, useCreateUserToDBMutation, useCreateQuestionToDBMutation, useCreateScoreMutation, useDeleteQuestionMutation} = apiSlice

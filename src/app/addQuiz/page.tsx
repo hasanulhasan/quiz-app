@@ -18,7 +18,7 @@ const AddQuiz = () => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const questionData = {
-      topicId: data.get('topicId'),
+      topicId: Number(data.get('topicId')),
       question: data.get('question'),
       correctAnswer: data.get('correctAnswer'),
       options: [data.get('option-1'), data.get('option-2'), data.get('option-3'), data.get('option-4')]
@@ -62,10 +62,8 @@ const AddQuiz = () => {
           label="Topic"
         >
           {
-            quizTopic && quizTopic.map(topic => <MenuItem value={`${topic.id}`}>{topic.name}</MenuItem>)
+            quizTopic && quizTopic.map(topic => <MenuItem key={topic.id} value={`${parseInt(topic.id)}`}>{topic.name}</MenuItem>)
           }
-          {/* <MenuItem value='Processor'>Processor</MenuItem>
-          <MenuItem value='Motherboard'>Motherboard</MenuItem> */}
         </Select>
       </FormControl>
         </Grid>
@@ -115,6 +113,7 @@ const AddQuiz = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+            required
             id="option-4"
             name="option-4"
             label="Option-4"
@@ -125,6 +124,7 @@ const AddQuiz = () => {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            required
             id="correctAnswer"
             name="correctAnswer"
             label="CorrectAnswer"
