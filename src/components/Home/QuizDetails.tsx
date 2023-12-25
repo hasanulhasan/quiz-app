@@ -21,6 +21,7 @@ const style = {
   width: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
+  borderRadius: '6px' , 
   boxShadow: 24,
   p: 4,
 };
@@ -85,18 +86,18 @@ const QuizDetails = ({quizzes}) => {
     <div>
       {/* Single Question */}
         <div className="max-w-3xl px-6 py-10 mx-auto space-y-12 border-solid border-2 my-6 shadow-lg">
-        <article className="space-y-8 rounded-lg dark:bg-gray-800 dark:text-gray-100">
+        <article className="space-y-8 rounded-lg bg-gray-800 text-gray-100">
           <div className="space-y-6">
             <h1 className="text-3xl font-bold md:tracking-tight md:text-3xl p-4">{question}</h1>
           </div>
         </article>
 
         <div>
-          <div className="flex flex-wrap py-6 border-t border-dashed dark:border-gray-400">
+          <div className="flex flex-wrap py-6 border-t border-dashed border-gray-400">
             
             { /* @ts-ignore */
               options?.map((option,i)=> <div key={i}>
-                <button onClick={()=> handleCorrectAns(option)} className="inline-block text-xl px-3 py-3 border-solid border-2 border-sky-700 font-bold m-3 rounded-lg hover:bg-gray-900 hover:text-white dark:bg-blue-400 dark:text-gray-900">{option}</button>
+                <button onClick={()=> handleCorrectAns(option)} className="inline-block text-xl px-3 py-3 border-solid border-2 border-sky-700 font-bold m-3 rounded-lg hover:bg-gray-900 hover:text-white bg-blue-400 text-gray-900">{option}</button>
               </div >)
             }
           </div>
@@ -138,14 +139,14 @@ const QuizDetails = ({quizzes}) => {
       >
         <Box sx={style}>
           <h1 className='text-2xl font-bold'>
-            You have got {score} out of {maxSteps}
+            You got {score} out of {maxSteps}
           </h1>
           <Typography id="modal-modal-description" sx={{ my: 2 }}>
             Thanks for participating in this quiz. Practice daily and enhance your skill
           </Typography>
-         <div className='flex justify-between my-2'>
-         <Link href='/'><button className="inline-block text-xl px-4 py-2 border rounded-md text-black dark:bg-blue-400 ">Go Home</button></Link>
-         <Link href='/myScore'><button className="inline-block text-xl px-4 py-2 border rounded-md text-black dark:bg-blue-400 ">See all Score</button></Link>
+         <div className='flex justify-between mt-2'>
+         <Link href='/'><button className="inline-block text-xl px-4 py-2 border rounded-md text-black bg-blue-400 ">Home</button></Link>
+         <Link href='/myScore'><button className="inline-block text-xl px-4 py-2 border rounded-md text-black bg-blue-400 ">See all Score</button></Link>
          </div>
         </Box>
       </Modal>

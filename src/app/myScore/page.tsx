@@ -11,9 +11,9 @@ const MyScore = () => {
   return (
       <section className="items-center lg:flex mt-6 ">
         <div className="justify-center flex-1 max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
-            <div className="pt-4 rounded shadow bg-white dark:bg-gray-200">
-                <div className="flex px-6 pb-4 border-b dark:border-gray-700">
-                    <h2 className="text-xl font-bold dark:text-gray-400">All Score</h2>
+            <div className="pt-4 rounded shadow bg-gray-200">
+                <div className="flex px-6 pb-4 border-b border-gray-700">
+                    <h2 className="text-xl font-bold text-gray-600">My Scores</h2>
                 </div>
                 <div className="p-4 overflow-x-auto">
                   {

@@ -83,7 +83,7 @@ const AddQuiz = () => {
             required
             id="option-1"
             name="option-1"
-            label="Option-1"
+            label="Option 1"
             fullWidth
             multiline
             variant="standard"
@@ -94,7 +94,7 @@ const AddQuiz = () => {
             required
             id="option-2"
             name="option-2"
-            label="Option-2"
+            label="Option 2"
             fullWidth
             multiline
             variant="standard"
@@ -105,7 +105,7 @@ const AddQuiz = () => {
             required
             id="option-3"
             name="option-3"
-            label="Option-3"
+            label="Option 3"
             fullWidth
             multiline
             variant="standard"
@@ -116,7 +116,7 @@ const AddQuiz = () => {
             required
             id="option-4"
             name="option-4"
-            label="Option-4"
+            label="Option 4"
             fullWidth
             multiline
             variant="standard"
@@ -134,7 +134,7 @@ const AddQuiz = () => {
           />
         </Grid>
       </Grid>
-        <button type="submit" className="flex items-center justify-center w-full p-3 mt-4 font-semibold tracking-wide rounded-md dark:bg-blue-500 text-white"
+        <button type="submit" className="flex items-center justify-center w-full p-3 mt-4 font-semibold tracking-wide rounded-md bg-blue-500 text-white"
           >Submit</button>
           </Box>
         </Paper>
